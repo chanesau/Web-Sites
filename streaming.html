@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamFlix - Your Ultimate Entertainment Destination</title>
+    <style>
+        /* Mobile First CSS - All in one <style> block */
+        :root {
+            --primary-bg: #141414;
+            --secondary-bg: #222;
+            --text-color: #fff;
+            --accent-color: #e50914;
+            --button-hover: #ff0000;
+            --font-stack: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --max-width: 1200px;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font-stack);
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll from overflow */
+        }
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            max-width: var(--max-width);
+            padding: 20px 0;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--primary-bg);
+            padding: 15px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--secondary-bg);
+        }
+
+        .logo {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9em;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://via.placeholder.com/1200x600/000000/FFFFFF?text=Hero+Image') no-repeat center center/cover; /* Placeholder, replace with actual image */
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+
+        .hero-content p {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 40px 0;
+            background-color: var(--secondary-bg);
+            text-align: center;
+        }
+
+        .features h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: var(--accent-color);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Single column for mobile */
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .feature-item {
+            background-color: var(--primary-bg);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .feature-item h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .feature-item p {
+            font-size: 0.9em;
+            color: #ccc;
+        }
+
+        /* Content Sections (e.g., Trending, New Releases) */
+        .content-section {
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .content-section h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: var(--accent-color);
+        }
+
+        .carousel-wrapper {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 15px; /* For scrollbar */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            scrollbar-width: thin; /* Firefox */
+            scrollbar-color: var(--accent-color) var(--secondary-bg); /* Firefox */
+        }
+
+        .carousel-wrapper::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .carousel-wrapper::-webkit-scrollbar-track {
+            background: var(--secondary-bg);
+            border-radius: 10px;
+        }
+
+        .carousel-wrapper::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 10px;
+        }
+
+        .movie-card {
+            display: inline-block;
+            width: 150px; /* Smaller cards for mobile */
+            margin-right: 15px;
+            background-color: var(--secondary-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            vertical-align: top; /* Align items at the top */
+            transition: transform 0.2s ease;
+        }
+
+        .movie-card:last-child {
+            margin-right: 0;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 220px; /* Adjust height as needed */
+            object-fit: cover;
+            display: block;
+        }
+
+        .movie-card-info {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .movie-card-info h3 {
+            font-size: 1em;
+            margin: 0 0 5px 0;
+            white-space: normal; /* Allow title to wrap */
+            color: var(--text-color);
+        }
+
+        .movie-card-info p {
+            font-size: 0.8em;
+            color: #bbb;
+            white-space: normal;
+        }
+
+        /* Call to Action / Pricing */
+        .cta-pricing {
+            background-color: var(--primary-bg);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .cta-pricing h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: var(--accent-color);
+        }
+
+        .pricing-plans {
+            display: grid;
+            grid-template-columns: 1fr; /* Single column for mobile */
+            gap: 25px;
+            padding: 0 20px;
+        }
+
+        .plan-card {
+            background-color: var(--secondary-bg);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .plan-card h3 {
+            font-size: 1.8em;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .plan-card .price {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .plan-card .price span {
+            font-size: 0.5em;
+            font-weight: normal;
+        }
+
+        .plan-card ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 25px;
+        }
+
+        .plan-card ul li {
+            margin-bottom: 10px;
+            font-size: 0.95em;
+            color: #ddd;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary-bg);
+            color: #bbb;
+            text-align: center;
+            padding: 25px 0;
+            font-size: 0.9em;
+            border-top: 1px solid var(--primary-bg);
+        }
+
+        footer ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 15px 0;
+        }
+
+        footer ul li {
+            display: inline-block;
+            margin: 0 8px;
+        }
+
+        footer ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Responsive Design - Media Queries for larger screens */
+        @media (min-width: 768px) {
+            .hero-content h1 {
+                font-size: 3.5em;
+            }
+
+            .hero-content p {
+                font-size: 1.2em;
+            }
+
+            .features h2, .content-section h2, .cta-pricing h2 {
+                font-size: 2.5em;
+            }
+
+            .feature-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Two or more columns */
+            }
+
+            .movie-card {
+                width: 180px; /* Larger cards for tablet */
+                height: auto;
+            }
+
+            .movie-card img {
+                height: 250px;
+            }
+
+            .pricing-plans {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Two or more columns */
+            }
+
+            nav ul li {
+                margin: 0 15px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero-content h1 {
+                font-size: 4.5em;
+            }
+
+            .hero-content p {
+                font-size: 1.3em;
+            }
+
+            .feature-grid {
+                grid-template-columns: repeat(3, 1fr); /* Three columns */
+            }
+
+            .movie-card {
+                width: 200px; /* Larger cards for desktop */
+            }
+
+            .movie-card img {
+                height: 280px;
+            }
+
+            .pricing-plans {
+                grid-template-columns: repeat(3, 1fr); /* Three columns */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="#" class="logo">StreamFlix</a>
+            <nav>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#trending">Trending</a></li>
+                    <li><a href="#new-releases">New Releases</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content container">
+            <h1>Unlimited Movies, TV Shows & More.</h1>
+            <p>Watch anywhere. Cancel anytime. Start your free trial today and dive into a world of entertainment.</p>
+            <button class="btn" onclick="openSignupModal()">Start Your Free 30-Day Trial</button>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Why Choose StreamFlix?</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h3>Vast Library</h3>
+                    <p>Access thousands of movies and TV shows, from blockbusters to indie gems.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Ad-Free Streaming</h3>
+                    <p>Enjoy uninterrupted viewing with no commercials whatsoever.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Multi-Device Support</h3>
+                    <p>Watch on your phone, tablet, laptop, or smart TV, seamlessly.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Exclusive Originals</h3>
+                    <p>Discover critically acclaimed StreamFlix Originals you won't find anywhere else.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Offline Downloads</h3>
+                    <p>Download your favorites to watch offline, perfect for travel.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>HD & 4K Quality</h3>
+                    <p>Experience crystal-clear picture quality up to Ultra HD 4K.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="trending" class="content-section">
+        <div class="container">
+            <h2>Trending Now</h2>
+            <div class="carousel-wrapper">
+                <div class="movie-card">
+                    <img src="https://via.placeholder.com/150x220/808080/FFFFFF?text=Movie+1" alt="Movie Title 1">
+                    <div class="movie-card-info">
+                        <h3>The Grand Adventure</h3>
+                        <p>Action, Sci-Fi</p>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <img src="https://via.placeholder.com/150x220/808080/FFFFFF?text=Movie+2" alt="Movie Title 2">
+                    <div class="movie-card-info">
+                        <h3>Mystery of the Old House</h3>
+                        <p>Thriller, Drama</p>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <img src="https://via.placeholder.com/150x220/808080/FFFFFF?text=Movie+3" alt="Movie Title 3">
+                    <div class="movie-card-info">
+                        <h3>Comedy Central Live</h3>
+                        <p>Comedy</p>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <img src="https://via.placeholder.com/150x220/808080/FFFFFF?text=Movie+4" alt="Movie Title 4">
+                    <div class="movie-card-info">
+                        <h3>Epic Fantasy Saga</h3>
+                        <p>Fantasy, Adventure</p>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <img src="https://via.placeholder.com/150x220/808080/FFFFFF?text=Movie+5" alt="Movie Title 5">
+                    <div class="movie-card-info">
+                        <h3>Documentary: Deep Sea</h3>
+                        <p>Documentary</p>
+                    </div>
+                </div>
+                 <div class="movie-card">
+                    <img src="https://via.placeholder.com/150x220/808080/FFFFFF?text=Movie+6" alt="Movie Title 6">
+                    <div class="movie-card-info">
+                        <h3>Romantic Getaway</h3>
+                        <p>Romance, Drama</p>
+                    </div>
+                </div>
+                </div>
+        </div>
+    </section>
+
+    <section id="new-releases" class="content-section">
+        <div class="container">
+            <h2>New Releases</h2>
+            <div class="carousel-wrapper">
+                <div class="movie-card">
+                    <img src="https://via.placeholder.com/150x220/808080/FFFFFF?text=Show+1" alt="TV Show Title 1">
+                    <div class="movie-card-info">
+                        <h3>The City Chronicles</h3>
+                        <p>TV Show, Crime</p>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <img src="https://via.placeholder.com/150x220/808080/FFFFFF?text=Show+2" alt="TV Show Title 2">
+                    <div class="movie-card-info">
+                        <h3>Cosmic Odyssey</h3>
+                        <p>TV Show, Sci-Fi</p>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <img src="https://via.placeholder.com/150x220/808080/FFFFFF?text=Show+3" alt="TV Show Title 3">
+                    <div class="movie-card-info">
+                        <h3>Historical Echoes</h3>
+                        <p>TV Show, Drama</p>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <img src="https://via.placeholder.com/150x220/808080/FFFFFF?text=Show+4" alt="TV Show Title 4">
+                    <div class="movie-card-info">
+                        <h3>Kids' Learning Fun</h3>
+                        <p>TV Show, Kids</p>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <img src="https://via.placeholder.com/150x220/808080/FFFFFF?text=Show+5" alt="TV Show Title 5">
+                    <div class="movie-card-info">
+                        <h3>Cooking Masterclass</h3>
+                        <p>TV Show, Reality</p>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <img src="https://via.placeholder.com/150x220/808080/FFFFFF?text=Show+6" alt="TV Show Title 6">
+                    <div class="movie-card-info">
+                        <h3>Fantasy Realm</h3>
+                        <p>TV Show, Fantasy</p>
+                    </div>
+                </div>
+                </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="cta-pricing">
+        <div class="container">
+            <h2>Simple Pricing, Endless Entertainment</h2>
+            <div class="pricing-plans">
+                <div class="plan-card">
+                    <h3>Basic Plan</h3>
+                    <p class="price">$9.99<span>/month</span></p>
+                    <ul>
+                        <li>Standard Definition (SD)</li>
+                        <li>1 Screen at a time</li>
+                        <li>Limited Downloads</li>
+                        <li>Access to all content</li>
+                    </ul>
+                    <button class="btn">Choose Basic</button>
+                </div>
+                <div class="plan-card">
+                    <h3>Standard Plan</h3>
+                    <p class="price">$15.99<span>/month</span></p>
+                    <ul>
+                        <li>High Definition (HD)</li>
+                        <li>2 Screens at a time</li>
+                        <li>Unlimited Downloads</li>
+                        <li>Access to all content</li>
+                        <li>Most Popular!</li>
+                    </ul>
+                    <button class="btn">Choose Standard</button>
+                </div>
+                <div class="plan-card">
+                    <h3>Premium Plan</h3>
+                    <p class="price">$19.99<span>/month</span></p>
+                    <ul>
+                        <li>Ultra HD (4K)</li>
+                        <li>4 Screens at a time</li>
+                        <li>Unlimited Downloads</li>
+                        <li>Access to all content</li>
+                        <li>Dolby Atmos Audio</li>
+                    </ul>
+                    <button class="btn">Choose Premium</button>
+                </div>
+            </div>
+            <p style="margin-top: 30px; font-size: 0.9em; color: #aaa;">
+                Start your <span style="font-weight: bold; color: var(--accent-color);">free 30-day trial</span> today with any plan. No commitment, cancel anytime.
+            </p>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <ul>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Help Center</a></li>
+                <li><a href="#">Terms of Use</a></li>
+                <li><a href="#">Privacy</a></li>
+                <li><a href="#">Cookie Preferences</a></li>
+                <li><a href="#">Corporate Information</a></li>
+            </ul>
+            <p>&copy; 2025 StreamFlix. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="signupModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 1000;">
+        <div style="background-color: var(--secondary-bg); padding: 40px; border-radius: 10px; text-align: center; max-width: 400px; width: 90%; position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
+            <span onclick="closeSignupModal()" style="position: absolute; top: 15px; right: 20px; font-size: 2em; color: var(--text-color); cursor: pointer;">&times;</span>
+            <h2 style="color: var(--accent-color); margin-bottom: 25px;">Start Your Free Trial!</h2>
+            <form onsubmit="handleSignup(event)">
+                <input type="email" placeholder="Enter your email" required style="width: calc(100% - 20px); padding: 12px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #555; background-color: #333; color: var(--text-color);">
+                <input type="password" placeholder="Create a password" required style="width: calc(100% - 20px); padding: 12px; margin-bottom: 25px; border-radius: 5px; border: 1px solid #555; background-color: #333; color: var(--text-color);">
+                <button type="submit" class="btn" style="width: 100%; padding: 15px;">Sign Up Now</button>
+            </form>
+            <p style="margin-top: 20px; font-size: 0.9em; color: #aaa;">No credit card required for the first 30 days.</p>
+        </div>
+    </div>
+
+    <script>
+        // All in line JavaScript functions
+        function openSignupModal() {
+            document.getElementById('signupModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        }
+
+        function closeSignupModal() {
+            document.getElementById('signupModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        function handleSignup(event) {
+            event.preventDefault(); // Prevent default form submission
+            alert('Thank you for signing up for StreamFlix! You will be redirected to complete your trial setup. (This is a demo alert)');
+            closeSignupModal();
+            // In a real application, you would send this data to a server
+            // e.g., fetch('/api/signup', { method: 'POST', body: new FormData(event.target) })
+            // .then(response => response.json())
+            // .then(data => { /* handle response */ });
+        }
+
+        // Optional: Smooth scrolling for navigation links
+        document.querySelectorAll('nav ul li a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Simple carousel scroll function (for demonstration)
+        // Note: For a robust carousel, dedicated libraries or more complex JS would be needed.
+        // This just shows the horizontal scroll.
+        document.addEventListener('DOMContentLoaded', () => {
+            const carouselWrappers = document.querySelectorAll('.carousel-wrapper');
+            carouselWrappers.forEach(wrapper => {
+                let isDown = false;
+                let startX;
+                let scrollLeft;
+
+                wrapper.addEventListener('mousedown', (e) => {
+                    isDown = true;
+                    wrapper.style.cursor = 'grabbing';
+                    startX = e.pageX - wrapper.offsetLeft;
+                    scrollLeft = wrapper.scrollLeft;
+                });
+
+                wrapper.addEventListener('mouseleave', () => {
+                    isDown = false;
+                    wrapper.style.cursor = 'grab';
+                });
+
+                wrapper.addEventListener('mouseup', () => {
+                    isDown = false;
+                    wrapper.style.cursor = 'grab';
+                });
+
+                wrapper.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - wrapper.offsetLeft;
+                    const walk = (x - startX) * 2; // Scroll-fast
+                    wrapper.scrollLeft = scrollLeft - walk;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
